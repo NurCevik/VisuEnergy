@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplama Aracı | VisuEnergy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-mask">
+                    <img src="assets/img/logo.jpg" alt="VisuEnergy Logo">
+                 </div>       
+    
+                 <span>VisuEnergy<span class="dot">.</span></span>
+            </a>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="features.html">Hakkımızda</a></li>
+                <li><a href="calculator.html">Hesaplama Aracı</a></li>
+                <li><a href="blog.html">Haberler</a></li>
+                <li><a href="contact.html" class="active">İletişim</a></li> 
+
+                <li class="theme-switch-wrapper">
+        <i class="fa-solid fa-sun" id="themeToggle" title="Mod Değiştir"></i>
+    </li>
+            </ul>
+        </nav>
+    </header>
+
+
+    <section id="features" class="full-width-features">
+    <div class="container-fluid">
+        <div class="section-header">
+            <h2 class="section-title">Neden VisuEnergy?</h2>
+            <p class="section-subtitle">Enerji bağımsızlığına giden yolda size özel çözümler.</p>
+        </div>
+        <div class="features-grid">
+            <!-- Kart 1 -->
+            <div class="feature-card-aesthetic">
+                <div class="card-image">
+                    <img src="assets/img/feature1.avif" alt="Uzay Teknolojisi">
+                    <div class="card-icon"><i class="fa-solid fa-satellite"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Uzaydan Çatınıza</h3>
+                    <p>NASA verileriyle çatınızın potansiyelini %98 doğrulukla hesaplıyoruz.</p>
+                </div>
+            </div>
+
+            <!-- Kart 2 -->
+            <div class="feature-card-aesthetic">
+                <div class="card-image">
+                    <img src="assets/img/feature2.avif" alt="Ekonomik Özgürlük">
+                    <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Kendi Faturanı Öde</h3>
+                    <p>Ürettiğin elektriği kullan, fazlasını satarak pasif gelir elde et.</p>
+                </div>
+            </div>
+
+            <!-- Kart 3 -->
+            <div class="feature-card-aesthetic">
+                <div class="card-image">
+                    <img src="assets/img/feature3.avif" alt="Yeşil Gelecek">
+                    <div class="card-icon"><i class="fa-solid fa-leaf"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Yeşil Bir Gelecek</h3>
+                    <p>Karbon ayak izini sil ve geleceğe temiz bir dünya bırak.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+  <!-- Vizyon, Misyon ve Değerler Bölümü -->
+<section id="about-values" class="section about-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Vizyon, Misyon & Değerlerimiz</h2>
+      <p class="section-subtitle">
+        Temiz enerji alanında hedeflerimiz ve temel değerlerimizle sektörde fark yaratıyoruz.
+      </p>
+    </div>
+
+    <div class="about-cards">
+      <div class="about-card glass-card">
+        <i class="fa-solid fa-bolt about-icon"></i>
+        <h3>Misyonumuz</h3>
+        <p>
+          Güneş enerjisini herkes için ulaşılabilir hale getirmek için çalışıyoruz. 
+          Evlerden işletmelere kadar temiz enerji çözümleri sunuyor, enerji maliyetlerini 
+          düşürmeyi ve çevreye olan etkileri minimize etmeyi hedefliyoruz. 
+        </p>
+      </div>
+
+      <div class="about-card glass-card">
+        <i class="fa-solid fa-eye about-icon"></i>
+        <h3>Vizyonumuz</h3>
+        <p>
+          Temiz enerjiyle sürdürülebilir bir gelecek yaratmayı amaçlıyoruz. 2030’a kadar 
+          yenilenebilir enerji kullanımını yaygınlaştırmayı, karbon ayak izini azaltmayı ve 
+          toplumda enerji bilincini artırmayı hedefliyoruz. 
+        </p>
+      </div>
+
+      <div class="about-card glass-card">
+        <i class="fa-solid fa-handshake-angle about-icon"></i>
+        <h3>Değerlerimiz</h3>
+        <p>
+          Müşteri memnuniyeti, inovasyon ve çevreye saygı en temel değerlerimizdir. 
+          Şeffaflık ve dürüstlükle çalışıyor, çevreye duyarlı çözümler üretiyor ve 
+          sürekli olarak kendimizi geliştirmeye odaklanıyoruz.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<!-- Sürdürülebilirlik ve Sosyal Sorumluluk -->
+
+<section class="about-responsibility">
+  <div class="container">
+    <h2 class="section-title">Sürdürülebilirlik & Sosyal Sorumluluk</h2>
+    <p class="section-subtitle">
+      VisuEnergy olarak sadece enerji üretmekle kalmıyor, toplum ve çevre için pozitif bir etki yaratmayı hedefliyoruz. 
+      Her projemiz, doğal kaynakların korunmasına katkıda bulunacak şekilde planlanır ve toplumsal fayda odaklıdır.
+    </p>
+
+    <div class="responsibility-content">
+      <div class="responsibility-item">
+        <i class="fa-solid fa-leaf"></i>
+        <div>
+          <h4>Çevre Dostu Enerji</h4>
+          <p>Güneş enerjisi çözümlerimiz ile karbon salınımını azaltıyor, ekosistemlerin korunmasına katkı sağlıyoruz. 
+          Projelerimiz, enerji verimliliğini maksimuma çıkaracak şekilde tasarlanıyor.</p>
+        </div>
+      </div>
+
+      <div class="responsibility-item">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <div>
+          <h4>Toplumsal Katkı</h4>
+          <p>Yerel topluluklarla işbirliği yapıyor, eğitim ve farkındalık programları ile enerji bilincini artırıyoruz. 
+          Sosyal sorumluluk projelerimiz ile geleceğe yatırım yapıyoruz.</p>
+        </div>
+      </div>
+
+      <div class="responsibility-item">
+        <i class="fa-solid fa-recycle"></i>
+        <div>
+          <h4>Sürdürülebilir Projeler</h4>
+          <p>Her yeni projede çevreye duyarlı malzemeler kullanıyor, uzun ömürlü ve geri dönüştürülebilir çözümler üretiyoruz. 
+          Enerji tasarrufu ve kaynak yönetimi önceliklerimiz arasında yer alıyor.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+<section id="comparison" class="comparison-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Neden Değişim Zamanı?</h2>
+                    <p class="section-subtitle">Geleneksel enerji ile güneş enerjisi arasındaki farkı net görün.</p>
+                </div>
+
+                <!-- class adı CSS ile uyumlu olacak şekilde düzeltildi -->
+                <div class="table-container glass-card">
+                    <table class="comp-table">
+                        <thead>
+                            <tr>
+                                <th class="criteria-col">Kriter</th>
+                                <th class="bad-col">Şebeke Elektriği</th>
+                                <th class="good-col">Güneş Enerjisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="criteria">Maliyet Eğilimi</td>
+                                <td class="bad-cell"><i class="fa-solid fa-arrow-trend-up"></i> Sürekli Artan Fiyatlar</td>
+                                <td class="good-cell"><i class="fa-solid fa-lock"></i> Ücretsiz ve Sabit</td>
+                            </tr>
+                            <tr>
+                                <td class="criteria">Çevreye Etkisi</td>
+                                <td class="bad-cell"><i class="fa-solid fa-smog"></i> Yüksek Karbon Salınımı</td>
+                                <td class="good-cell"><i class="fa-solid fa-leaf"></i> %100 Yeşil ve Temiz</td>
+                            </tr>
+                            <tr>
+                                <td class="criteria">Enerji Bağımsızlığı</td>
+                                <td class="bad-cell"><i class="fa-solid fa-link"></i> Dışa Bağımlı</td>
+                                <td class="good-cell"><i class="fa-solid fa-solar-panel"></i> Kendi Enerjini Üret</td>
+                            </tr>
+                            <tr>
+                                <td class="criteria">Mülk Değeri</td>
+                                <td class="bad-cell"><i class="fa-solid fa-minus"></i> Etkisi Yok</td>
+                                <td class="good-cell"><i class="fa-solid fa-house-circle-check"></i> Değer Artışı Sağlar</td>
+                            </tr>
+                            <tr>
+                                <td class="criteria">Yatırım Geri Dönüşü</td>
+                                <td class="bad-cell"><i class="fa-solid fa-xmark"></i> Sadece Gider Kalemi</td>
+                                <td class="good-cell"><i class="fa-solid fa-piggy-bank"></i> 4-5 Yılda Amorti Eder</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+          <section class="live-impact-section">
+            <div class="container">
+                <div class="impact-wrapper">
+                    <div class="impact-item">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3 class="counter" data-target="15400">0</h3>
+                        <p>Kurulu Güç (MW)</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-house-chimney"></i>
+                        <h3 class="counter" data-target="850">0</h3>
+                        <p>Mutlu Ev Sahibi</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-tree"></i>
+                        <h3 class="counter" data-target="120000">0</h3>
+                        <p>Kurtarılan Ağaç</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fa-solid fa-earth-europe"></i>
+                        <h3 class="counter" data-target="98">0</h3>
+                        <p>Hizmet Verilen İlçe</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- Başarılar & Ödüller Bölümü -->
+
+
+
+        
+<section id="achievements">
+  <h2 class="section-title">Başarılar & Ödüller</h2>
+  <p class="section-subtitle">Müşterilerimizin memnuniyeti ve kazandığımız ödüller ile gurur duyuyoruz.</p>
+
+  <div class="achievement-cards">
+    <div class="achievement-card">
+      <i class="fas fa-trophy"></i>
+      <h3>En İyi Startup</h3>
+      <p>2025 yılında teknoloji kategorisinde kazandığımız ödül.</p>
+    </div>
+
+    <div class="achievement-card">
+      <i class="fas fa-users"></i>
+      <h3>1000+ Mutlu Müşteri</h3>
+      <p>Hizmetlerimizden memnun kalan binlerce kullanıcı.</p>
+    </div>
+
+    <div class="achievement-card">
+      <i class="fas fa-award"></i>
+      <h3>Kalite Sertifikası</h3>
+      <p>Uluslararası kalite standartlarına uygun hizmet.</p>
+    </div>
+  </div>
+</section>
+
+
+
+ <section id="team" class="team-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Ekibimiz</h2>
+            <p class="section-subtitle">Tutkulu profesyonellerimizle temiz enerji için çalışıyoruz.</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-member glass-card">
+                <div class="member-img">
+                    <img src="assets/img/pinar.jpg" alt="Pınar Öztekin">
+                </div>
+                <h3>Pınar Öztekin</h3>
+                <span class="role">Lead Software Architect</span>
+            </div>
+
+            <div class="team-member glass-card">
+                <div class="member-img">
+                    <img src="assets/img/rabia.jpg" alt="Rabia Nur Çevik">
+                </div>
+                <h3>Rabia Nur Çevik</h3>
+                <span class="role">Chief Technology Officer (CTO)</span>
+            </div>
+
+            <div class="team-member glass-card">
+                <div class="member-img">
+                    <img src="assets/img/ayca.jpg" alt="Ayça Büşra Kıllı">
+                </div>
+                <h3>Ayça Büşra Kıllı</h3>
+                <span class="role">Business Intelligence & Data Analyst</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+ 
+
+
+      <!-- Mutlu Müşteriler Bölümü -->
+<section id="testimonials" class="testimonials-section reveal"> 
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Mutlu Müşteriler</h2>
+      <p class="section-subtitle">VisuEnergy ile tasarruf edenlerin hikayeleri.</p>
+    </div>
+    
+    <div class="testimonial-slider">
+      <div class="testimonial-track">
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Faturamın sıfırlanacağına inanmıyordum ama 3 ayda gerçek oldu. Hesaplama aracı ne dediyse o çıktı."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User">
+            <div>
+              <h4>Ahmet K.</h4>
+              <span>İzmir, Villa Sahibi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p>"Süreç yönetimi harikaydı. Belediyeyle uğraşmadan anahtar teslim kurulum yaptılar."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User">
+            <div>
+              <h4>Zeynep T.</h4>
+              <span>Ankara, İşletmeci</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Yazılımın verdiği ROI (Geri dönüş) analizi sayesinde banka kredisini gönül rahatlığıyla çektim."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/85.jpg" alt="User">
+            <div>
+              <h4>Murat Y.</h4>
+              <span>İstanbul, Fabrika Müdürü</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Enerji tasarrufu gözle görülür. Faturalarımız %30 düştü."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User">
+            <div>
+              <h4>Elif S.</h4>
+              <span>İzmir, Kafe Sahibi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p>"Kurulum hızlı ve sorunsuz oldu. Ekibe teşekkürler!"</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/21.jpg" alt="User">
+            <div>
+              <h4>Onur A.</h4>
+              <span>Antalya, İşletmeci</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+          <p>"Veri analizi sayesinde enerji tüketimimizi optimize ettik."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="User">
+            <div>
+              <h4>Selin K.</h4>
+              <span>Bursa, Fabrika Sahibi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card glass-card">
+          <div class="stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star-half-stroke"></i></div>
+          <p>"Müşteri destekleri çok ilgili. Her sorumu yanıtladılar."</p>
+          <div class="user-info">
+            <img src="https://randomuser.me/api/portraits/men/47.jpg" alt="User">
+            <div>
+              <h4>Burak T.</h4>
+              <span>İstanbul, Ofis Sahibi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CSS -->
+<style>
+.testimonial-slider {
+  overflow-x: auto;
+  padding: 20px 0;
+  scroll-behavior: smooth;
+}
+.testimonial-track {
+  display: flex;
+  gap: 20px;
+}
+.testimonial-card {
+  flex: 0 0 30%;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+.testimonial-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+.stars {
+  color: #f5b50a;
+  margin-bottom: 10px;
+}
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+.user-info img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  border: 2px solid #ddd;
+}
+.user-info h4 {
+  margin: 0;
+  font-size: 16px;
+}
+.user-info span {
+  font-size: 14px;
+  color: #666;
+}
+</style>
+
+
+
+
+<script>
+const track = document.querySelector('.testimonial-track');
+let scrollAmount = 0;
+const cardWidth = 320; // Kart genişliği + gap
+const speed = 2; // Kayma hızı (px/saniye)
+
+function autoSlide() {
+    scrollAmount += 1; // Her frame’de kaydırma miktarı
+    if (scrollAmount > track.scrollWidth - track.clientWidth) {
+        scrollAmount = 0; // Baştan başlat
+    }
+    track.style.transform = `translateX(-${scrollAmount}px)`;
+    requestAnimationFrame(autoSlide);
+}
+
+autoSlide(); // Slider’ı başlat
+</script>
+
+
+
+
+<div class="brands-ticker">
+            <div class="container">
+                <p>Teknoloji Ortaklarımız</p>
+                <div class="logos">
+                    <div class="brand"><i class="fa-brands fa-aws"></i> <span>Amazon Energy</span></div>
+                    <div class="brand"><i class="fa-brands fa-google"></i> <span>Google Cloud</span></div>
+                    <div class="brand"><i class="fa-brands fa-envira"></i> <span>Tesla Solar</span></div>
+                    <div class="brand"><i class="fa-solid fa-bolt"></i> <span>Siemens Energy</span></div>
+                    <div class="brand"><i class="fa-brands fa-react"></i> <span>Meta Power</span></div>
+                </div>
+            </div>
+        </div>
+
+        
+    </main>
+
+    
+
+    <footer id="footer">
+    <div class="footer-container">
+        <!-- About -->
+        <div class="footer-column">
+            <h4 class="footer-title">VisuEnergy</h4>
+            <p>Geleceğin enerjisi için bugünden adım atın.</p>
+        </div>
+
+        <!-- Links -->
+        <div class="footer-column">
+            <h4 class="footer-title">Bağlantılar</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="features.html">Hakkımızda</a></li>
+                <li><a href="calculator.html">Hesaplama Aracı</a></li>
+                <li><a href="blog.html">Haberler</a></li>
+                <li><a href="contact.html" class="active">İletişim</a></li> 
+
+            </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-column">
+            <h4 class="footer-title">Sosyal Medya</h4>
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-column">
+            <h4 class="footer-title">Haberdar Olun</h4>
+            <p>En son enerji haberleri ve fırsatlardan haberdar olun.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="E-posta adresiniz" required>
+                <button type="submit" class="btn-newsletter">Abone Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2025 VisuEnergy. Tüm hakları saklıdır.
+    </div>
+</footer>
+
+
+    <div class="chat-widget">
+    <button id="chatToggle" class="chat-toggle-btn">
+        <i class="fa-solid fa-robot"></i>
+        <span class="notification-dot"></span>
+    </button>
+
+    <div class="chat-window glass-card" id="chatWindow">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <h4>EnergyBot ⚡</h4>
+                    <span class="status">Çevrimiçi</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close-chat" id="closeChat"></i>
+        </div>
+
+        <div class="chat-body" id="chatBody">
+            <div class="message bot-msg">
+                <p>Merhaba! Ben VisuEnergy asistanıyım. Size nasıl yardımcı olabilirim?</p>
+            </div>
+            <div class="suggestions">
+                <button onclick="sendQuickMsg('Fiyatlar ne kadar?')">Fiyatlar?</button>
+                <button onclick="sendQuickMsg('Amortisman süresi?')">Amortisman?</button>
+                <button onclick="sendQuickMsg('Çatım uygun mu?')">Çatım uygun mu?</button>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Bir soru yazın...">
+            <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+
+    <div id="page-loader">
+    <div class="loader-spinner"></div>
+</div>
+
+<script>
+    // Sayfa yüklendiğinde loader'ı kaldır
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('page-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        }
+    });
+</script>
+
+</body>
+</html>

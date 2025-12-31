@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisuEnergy | Temiz Enerji Potansiyeli</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-mask">
+                    <img src="assets/img/logo.jpg" alt="VisuEnergy Logo">
+                 </div>       
+    
+                 <span>VisuEnergy<span class="dot">.</span></span>
+            </a>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="features.html">Hakkımızda</a></li>
+                <li><a href="calculator.html">Hesaplama Aracı</a></li>
+                <li><a href="blog.html">Haberler</a></li>
+                <li><a href="contact.html">İletişim</a></li> 
+
+                <li class="theme-switch-wrapper">
+        <i class="fa-solid fa-sun" id="themeToggle" title="Mod Değiştir"></i>
+    </li>
+            </ul>
+        </nav>
+    </header>
+
+
+
+    <main style="padding-top: 120px; min-height: 100vh; display: flex; justify-content: center;">
+        <section class="container" style="max-width: 600px; width: 100%;">
+            
+            <div class="glass-card payment-page-wrapper reveal">
+                <div class="section-header" style="margin-bottom: 2rem;">
+                    <h2 class="section-title" style="font-size: 1.8rem;">Güvenli Ödeme</h2>
+                    <p class="section-subtitle">Sistem kurulumu için ön ödeme işlemini tamamlayın.</p>
+                </div>
+
+                <div class="credit-card-visual">
+                    <div class="card-chip"></div>
+                    <div class="card-number">**** **** **** ****</div>
+                    <div class="card-meta">
+                        <span>Ad Soyad</span>
+                        <span>Ay/Yıl</span>
+                    </div>
+                    <i class="fa-brands fa-cc-mastercard" style="position: absolute; bottom: 20px; right: 20px; font-size: 3rem; color: rgba(255,255,255,0.8);"></i>
+                </div>
+
+                <form id="paymentForm" onsubmit="event.preventDefault(); processFullPayment();">
+                    <div class="form-group">
+                        <label>Kart Üzerindeki İsim</label>
+                        <input type="text" placeholder="Örn: Pınar Öztekin" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kart Numarası</label>
+                        <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <div class="form-group" style="flex:1">
+                            <label>SKT</label>
+                            <input type="text" placeholder="AA/YY" maxlength="5" required>
+                        </div>
+                        <div class="form-group" style="flex:1">
+                            <label>CVV</label>
+                            <input type="text" placeholder="123" maxlength="3" required>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-summary" style="margin: 2rem 0; padding: 1.5rem; background: rgba(14, 165, 164, 0.1); border: 1px dashed var(--accent-color); border-radius: 12px; text-align: center;">
+                        <span style="color:#aaa; display:block; margin-bottom: 5px;">Ödenecek Toplam Tutar</span>
+                        <h3 id="paymentTotalDisplay" style="color: #fff; margin:0; font-size: 2rem;">0 TL</h3>
+                    </div>
+
+                    <button type="submit" class="btn-calculate" style="background: linear-gradient(135deg, #8e44ad, #9b59b6); width: 100%;">
+                        <i class="fa-solid fa-lock"></i> Güvenli Öde
+                    </button>
+                    
+                    <p style="text-align: center; margin-top: 1rem; font-size: 0.8rem; color: #888;">
+                        <i class="fa-solid fa-shield-halved"></i> Ödemeniz 256-bit SSL ile korunmaktadır.
+                    </p>
+                </form>
+            </div>
+
+        </section>
+    </main>
+
+    <script>
+        // Sayfa açılınca URL'den tutarı al
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const amount = params.get('amount');
+            
+            if (amount) {
+                // Sayıyı formatla (Örn: 150000 -> 150.000 TL)
+                const formatted = parseInt(amount).toLocaleString('tr-TR');
+                document.getElementById('paymentTotalDisplay').innerText = formatted + " TL";
+            }
+        });
+
+        function processFullPayment() {
+            const btn = document.querySelector('button[type="submit"]');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> İşleniyor...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+            showPayToast();
+
+            // Toast ekranda daha uzun kalsın (4.5 saniye)
+            setTimeout(() => {
+             window.location.href = "index.html";
+            }, 4500);
+            }, 2000);
+
+        }
+
+        function showPayToast() {
+    const t = document.getElementById("payToast");
+    if (!t) return;
+    t.classList.add("show");
+    setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+    </script>
+
+<!-- Payment Toast -->
+<div id="payToast" class="toast toast--pay" aria-live="polite" aria-atomic="true">
+  <i class="fa-solid fa-circle-check"></i>
+  <div class="toast__text">
+    <strong>Ödemeniz başarıyla alındı!</strong>
+    <span>Teşekkür ederiz. İşleminiz onaylandı.</span>
+  </div>
+</div>
+
+
+
+<footer id="footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h4>VisuEnergy</h4>
+                <p>Geleceğin enerjisi için bugünden adım atın.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Bağlantılar</h4>
+                <a href="index.html">Ana Sayfa</a>
+                <a href="index.html#calculator">Hesapla</a>
+                <a href="index.html#map">Harita</a>
+            </div>
+            <div class="footer-col">
+                <h4>Sosyal Medya</h4>
+                <div class="socials">
+                    <i class="fa-brands fa-twitter"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-linkedin"></i>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 VisuEnergy. Tüm hakları saklıdır.
+        </div>
+    </footer>
+     <script src="app.js"></script>
+
+
+     <div class="chat-widget">
+    <button id="chatToggle" class="chat-toggle-btn">
+        <i class="fa-solid fa-robot"></i>
+        <span class="notification-dot"></span>
+    </button>
+
+    <div class="chat-window glass-card" id="chatWindow">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <h4>EnergyBot ⚡</h4>
+                    <span class="status">Çevrimiçi</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close-chat" id="closeChat"></i>
+        </div>
+
+        <div class="chat-body" id="chatBody">
+            <div class="message bot-msg">
+                <p>Merhaba! Ben VisuEnergy asistanıyım. Size nasıl yardımcı olabilirim?</p>
+            </div>
+            <div class="suggestions">
+                <button onclick="sendQuickMsg('Fiyatlar ne kadar?')">Fiyatlar?</button>
+                <button onclick="sendQuickMsg('Amortisman süresi?')">Amortisman?</button>
+                <button onclick="sendQuickMsg('Çatım uygun mu?')">Çatım uygun mu?</button>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Bir soru yazın...">
+            <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+
+    <div id="page-loader">
+    <div class="loader-spinner"></div>
+</div>
+
+<script>
+    // Sayfa yüklendiğinde loader'ı kaldır
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('page-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        }
+    });
+</script>
+</body>
+</html>

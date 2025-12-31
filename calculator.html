@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hesaplama Aracı | VisuEnergy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <div class="logo-mask">
+                    <img src="assets/img/logo.jpg" alt="VisuEnergy Logo">
+                 </div>       
+    
+                 <span>VisuEnergy<span class="dot">.</span></span>
+            </a>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="features.html">Hakkımızda</a></li>
+                <li><a href="calculator.html">Hesaplama Aracı</a></li>
+                <li><a href="blog.html">Haberler</a></li>
+                <li><a href="contact.html" class="active">İletişim</a></li> 
+
+                <li class="theme-switch-wrapper">
+        <i class="fa-solid fa-sun" id="themeToggle" title="Mod Değiştir"></i>
+    </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="padding-top: 100px; min-height: 80vh;">
+
+        <section id="calculator">
+            <div class="container split-layout">
+                <div class="calc-form glass-card">
+                        <h2>Hesaplama Aracı</h2>
+                    <form id="solarForm">
+                        <div class="form-group">
+                            <label for="city">Şehir Seçin</label>
+                            <select id="city" required>
+                                <option value="" disabled selected>İl Seçiniz...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="area">Çatı Alanı (m²)</label>
+                            <input type="number" id="area" placeholder="Örn: 100" min="10" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="efficiency">Panel Verimi (%)</label>
+                            <input type="number" id="efficiency" value="20" min="10" max="25">
+                        </div>
+                        <div class="form-group">
+                            <label for="tilt">Çatı Eğimi (°)</label>
+                            <input type="number" id="tilt" value="30" min="0" max="90">
+                        </div>
+                        <div class="form-group">
+                            <label for="shading">Gölgelenme Durumu</label>
+                            <select id="shading">
+                                <option value="low">Düşük (Açık Alan)</option>
+                                <option value="medium">Orta (Az Gölge)</option>
+                                <option value="high">Yüksek (Ağaç/Bina var)</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-calculate">Potansiyeli Hesapla</button>
+                        <button type="button" onclick="location.reload()" class="btn-secondary btn-reset">
+                            <i class="fa-solid fa-rotate-right" style="margin-right: 8px;"></i> Yeni Hesapla
+                        </button>
+                    </form>
+                </div>
+
+                <div class="result-area glass-card" id="resultCard" style="opacity: 0.5; transition: opacity 0.5s;">
+    
+    <div class="result-top-bar" style="text-align:center; margin-bottom: 2rem;">
+        <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 10px;">
+            <lottie-player id="successAnim" src="https://assets2.lottiefiles.com/packages/lf20_pprxh5jm.json" background="transparent" speed="1" style="width: 80px; height: 80px; display:none;" autoplay></lottie-player>
+        </div>
+        <div class="result-header">
+            <h3 style="margin-bottom: 0.5rem; color: #fff;">Yıllık Üretim Potansiyeli</h3>
+            <div class="big-number"><span id="kwhValue">0</span> <small>kWh</small></div>
+        </div>
+    </div>
+
+    <div class="all-stats-grid">
+        <div class="stat-item">
+            <i class="fa-solid fa-tree"></i>
+            <div><span id="treeValue">0</span> <small>Ağaç</small></div>
+        </div>
+        <div class="stat-item">
+            <i class="fa-solid fa-car"></i>
+            <div><span id="carValue">0</span> <small>km Yol</small></div>
+        </div>
+        <div class="stat-item">
+            <i class="fa-solid fa-home"></i>
+            <div><span id="homeValue">0</span> <small>Hane</small></div>
+        </div>
+        <div class="stat-item">
+            <i class="fa-solid fa-leaf"></i>
+            <div><span id="co2Value">0</span> <small>kg CO₂</small></div>
+        </div>
+        <div class="stat-item">
+            <i class="fa-solid fa-turkish-lira-sign"></i>
+            <div><span id="moneyValue">0</span> <small>TL Kazanç</small></div>
+        </div>
+        <div class="stat-item">
+            <i class="fa-solid fa-layer-group"></i>
+            <div><span id="panelCount">0</span> <small>Panel</small></div>
+        </div>
+        <div class="stat-item" style="border-color: #ff6b6b;">
+            <i class="fa-solid fa-tag" style="color: #ff6b6b;"></i>
+            <div><span id="systemCost">0</span> <small style="color:#ff6b6b;">Tahmini Yatırım</small></div>
+        </div>
+    </div>
+
+    <div class="charts-row">
+        <div class="chart-wrapper">
+            <h4 class="chart-title">Aylık Üretim Dağılımı</h4>
+            <div class="chart-container">
+                <canvas id="monthlyChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-wrapper">
+            <h4 class="chart-title">Yatırım Geri Dönüş (ROI)</h4>
+            <div class="chart-container">
+                <canvas id="roiChart"></canvas>
+            </div>
+            <p class="chart-note">*Tahmini amortisman süresi.</p>
+        </div>
+    </div>
+
+    <div class="action-buttons pdf-hide">
+    <button id="downloadBtn" class="btn-secondary">
+        <i class="fa-solid fa-file-pdf"></i> Rapor İndir
+    </button>
+
+    <button onclick="goToOffer()" class="btn-primary">
+        <i class="fa-solid fa-paper-plane"></i> Bilgi Al
+    </button>
+
+    <button onclick="goToPaymentPage()" class="btn-primary">
+        <i class="fa-regular fa-credit-card"></i> Ödeme Yap
+    </button>
+</div>
+
+
+</div>
+        <section id="map" class="map-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Türkiye Güneş Enerjisi Haritası</h2>
+                    <p class="section-subtitle">Şehrinizi seçin, potansiyeli keşfedin ve hesaplamaya başlayın.</p>
+                </div>
+                <div id="solar-map" class="glass-card map-container"></div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer id="footer">
+    <div class="footer-container">
+        <!-- About -->
+        <div class="footer-column">
+            <h4 class="footer-title">VisuEnergy</h4>
+            <p>Geleceğin enerjisi için bugünden adım atın.</p>
+        </div>
+
+        <!-- Links -->
+        <div class="footer-column">
+            <h4 class="footer-title">Bağlantılar</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Anasayfa</a></li>
+                <li><a href="features.html">Hakkımızda</a></li>
+                <li><a href="calculator.html">Hesaplama Aracı</a></li>
+                <li><a href="blog.html">Haberler</a></li>
+                <li><a href="contact.html" class="active">İletişim</a></li> 
+
+            </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div class="footer-column">
+            <h4 class="footer-title">Sosyal Medya</h4>
+            <div class="footer-socials">
+                <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+            </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="footer-column">
+            <h4 class="footer-title">Haberdar Olun</h4>
+            <p>En son enerji haberleri ve fırsatlardan haberdar olun.</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="E-posta adresiniz" required>
+                <button type="submit" class="btn-newsletter">Abone Ol</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        &copy; 2025 VisuEnergy. Tüm hakları saklıdır.
+    </div>
+</footer>
+
+
+    <div class="chat-widget">
+    <button id="chatToggle" class="chat-toggle-btn">
+        <i class="fa-solid fa-robot"></i>
+        <span class="notification-dot"></span>
+    </button>
+
+    <div class="chat-window glass-card" id="chatWindow">
+        <div class="chat-header">
+            <div class="bot-info">
+                <div class="bot-avatar"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <h4>EnergyBot ⚡</h4>
+                    <span class="status">Çevrimiçi</span>
+                </div>
+            </div>
+            <i class="fa-solid fa-xmark close-chat" id="closeChat"></i>
+        </div>
+
+        <div class="chat-body" id="chatBody">
+            <div class="message bot-msg">
+                <p>Merhaba! Ben VisuEnergy asistanıyım. Size nasıl yardımcı olabilirim?</p>
+            </div>
+            <div class="suggestions">
+                <button onclick="sendQuickMsg('Fiyatlar ne kadar?')">Fiyatlar?</button>
+                <button onclick="sendQuickMsg('Amortisman süresi?')">Amortisman?</button>
+                <button onclick="sendQuickMsg('Çatım uygun mu?')">Çatım uygun mu?</button>
+            </div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="chatInput" placeholder="Bir soru yazın...">
+            <button id="sendBtn"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="app.js"></script>
+
+    <div id="page-loader">
+    <div class="loader-spinner"></div>
+</div>
+
+<script>
+    // Sayfa yüklendiğinde loader'ı kaldır
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('page-loader');
+        if(loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => { loader.style.display = 'none'; }, 500);
+        }
+    });
+</script>
+
+
+</body>
+</html>
